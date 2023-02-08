@@ -14,10 +14,10 @@ data "aws_eks_cluster_auth" "clutertoken" {
     name = "nextcluster"
 }
 
-data "aws_eks_node_group" "ng_arn_info" {
-  cluster_name    = "nextcluster"
-  node_group_name = "group_name-2023020808100816620000000d"
-}
+# data "aws_eks_node_group" "ng_arn_info" {
+#   cluster_name    = "nextcluster"
+#   node_group_name = "group_name-2023020808100816620000000d"
+# }
 
 locals {
   oidcval = trimprefix(data.aws_eks_cluster.example.identity[0].oidc[0].issuer,"https://oidc.eks.us-east-1.amazonaws.com/id/")
