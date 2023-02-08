@@ -50,7 +50,7 @@ locals {
                 },
                 {
                   groups = ["system:bootstrappers","system:nodes"]
-                  rolearn  = data.aws_eks_node_group.ng_arn_info.node_role_arn #"arn:aws:iam::657907747545:role/group_name-eks-node-group-20230203121647838400000001"
+                  rolearn  = "arn:aws:iam::657907747545:role/group_name-eks-node-group" #data.aws_eks_node_group.ng_arn_info.node_role_arn #"arn:aws:iam::657907747545:role/group_name-eks-node-group-20230203121647838400000001"
                   username = "system:node:{{EC2PrivateDNSName}}"
                 }
     ]
