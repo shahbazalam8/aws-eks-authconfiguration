@@ -1,3 +1,7 @@
+ terraform{
+  backend s3{
+  }
+}
 data "aws_eks_cluster" "example" {
   name = "nextcluster"
 }
