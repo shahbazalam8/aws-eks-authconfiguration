@@ -56,12 +56,12 @@ locals {
                   username = "papu"
                   groups   = ["system:masters"]    
                 },
-                # {
-                #   groups = ["system:bootstrappers","system:nodes"]
-                #   rolearn  = "arn:aws:iam::657907747545:role/group_name-eks-node-group-20230213114651389300000001" #data.aws_eks_node_group.ng_arn_info.node_role_arn #"arn:aws:iam::657907747545:role/group_name-eks-node-group-20230203121647838400000001"  #"arn:aws:iam::657907747545:role/group_name-eks-node-group"
-                #   username = "system:node:{{EC2PrivateDNSName}}"
-                # }
-                data.kubernetes_config_map_v1.outdata.data.mapRoles
+                {
+                  groups = ["system:bootstrappers","system:nodes"]
+                  rolearn  = data.aws_eks_node_group.ng_arn_info.node_role_arn #"arn:aws:iam::657907747545:role/group_name-eks-node-group-20230213114651389300000001" #data.aws_eks_node_group.ng_arn_info.node_role_arn #"arn:aws:iam::657907747545:role/group_name-eks-node-group-20230203121647838400000001"  #"arn:aws:iam::657907747545:role/group_name-eks-node-group"
+                  username = "system:node:{{EC2PrivateDNSName}}"
+                }
+                # data.kubernetes_config_map_v1.outdata.data.mapRoles
     ]
 
   aws_auth_cm_users = [
@@ -118,21 +118,21 @@ provider "kubernetes" {
 # #    data = yamlencode(local.aws_auth_configmap_data)
 # }
 
-resource "kubernetes_config_map_v1_data" "aws_auth" {
+# resource "kubernetes_config_map_v1_data" "aws_auth" {
   
-  metadata {
-    name      = "aws-auth"
-    namespace = "kube-system"
-  }
+#   metadata {
+#     name      = "aws-auth"
+#     namespace = "kube-system"
+#   }
 
-  data = {
-    mapRoles    = yamlencode(local.aws_auth_cm_role)
-    mapUsers    = yamlencode(local.aws_auth_cm_users)
-  #     "mapAccounts" = yamlencode(var.map_accounts)
-  }
-  force = true
-  #    data = yamlencode(local.aws_auth_configmap_data)
-}
+#   data = {
+#     mapRoles    = yamlencode(local.aws_auth_cm_role)
+#     mapUsers    = yamlencode(local.aws_auth_cm_users)
+#   #     "mapAccounts" = yamlencode(var.map_accounts)
+#   }
+#   force = true
+#   #    data = yamlencode(local.aws_auth_configmap_data)
+# }
 
 data "kubernetes_config_map_v1" "outdata" {
   metadata {
