@@ -118,21 +118,21 @@ provider "kubernetes" {
 # #    data = yamlencode(local.aws_auth_configmap_data)
 # }
 
-# resource "kubernetes_config_map_v1_data" "aws_auth" {
+resource "kubernetes_config_map_v1_data" "aws_auth" {
   
-#   metadata {
-#     name      = "aws-auth"
-#     namespace = "kube-system"
-#   }
+  metadata {
+    name      = "aws-auth"
+    namespace = "kube-system"
+  }
 
-#   data = {
-#     mapRoles    = yamlencode(local.aws_auth_cm_role)
-#     mapUsers    = yamlencode(local.aws_auth_cm_users)
-#   #     "mapAccounts" = yamlencode(var.map_accounts)
-#   }
-#   force = true
-#   #    data = yamlencode(local.aws_auth_configmap_data)
-# }
+  data = {
+    mapRoles    = yamlencode(local.aws_auth_cm_role)
+    mapUsers    = yamlencode(local.aws_auth_cm_users)
+  #     "mapAccounts" = yamlencode(var.map_accounts)
+  }
+  force = true
+  #    data = yamlencode(local.aws_auth_configmap_data)
+}
 
 data "kubernetes_config_map_v1" "outdata" {
   metadata {
